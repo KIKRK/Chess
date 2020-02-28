@@ -24,7 +24,15 @@ public class BoardFragment extends Fragment implements View.OnClickListener, Ser
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        gameOfChess = new GameOfChess(context);
+        if (gameOfChess == null) {
+            gameOfChess = new GameOfChess(context);
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Nullable
@@ -52,6 +60,5 @@ public class BoardFragment extends Fragment implements View.OnClickListener, Ser
     public void onClick(View v) {
         gameOfChess.onClick(v);
     }
-
 
 }

@@ -1,12 +1,12 @@
 package com.example.chess;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 
@@ -25,25 +25,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment boardFragment = fragmentManager.findFragmentByTag("BOARD_FRAGMENT");
 
-        if (savedInstanceState != null){
-            fragmentManager.getFragment(savedInstanceState, "SAVED_FRAGMENT");
-        } else {
-            Fragment boardFragment = new BoardFragment();
+        if (boardFragment == null) {
+            boardFragment = new BoardFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.boardFragmentHolder, boardFragment, "BOARD_FRAGMENT");
             fragmentTransaction.commit();
         }
 
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment boardFragment = fragmentManager.findFragmentById(R.id.boardFragmentHolder);
-        fragmentManager.putFragment(outState, "SAVED_FRAGMENT", boardFragment);
+        Log.e("B", boardFragment.toString());
 
     }
 
